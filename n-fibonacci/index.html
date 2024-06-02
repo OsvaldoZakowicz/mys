@@ -152,6 +152,7 @@
     <script src="nFibonacci.js"></script>
     <script src="../tests-aleatoriedad/chiCuadrado.js"></script>
     <script src="../tests-aleatoriedad/poker.js"></script>
+    <script src="../storage/localStorage.js"></script>
 
     <script>
         /* funcion obtener elemento por ID */
@@ -162,7 +163,6 @@
         const MAKE_CADENA = (array) => array.join().toLocaleString().replaceAll(',',',\n');
 
         /* resultado del calculo */
-        /* [secuencia, fueTesteada?] */
         let calculoFibonacci = [];
 
         /* funcion en el boton calcular fibonacci */
@@ -313,13 +313,21 @@
             // sin errores
             errores.textContent = '';
 
-            console.log(nombreSecuencia.value);
-            console.log(testChi.checked);
-            console.log(testPoker.checked);
+            // objeto a guardar
+            const secuencia = {
+                nombre: nombreSecuencia.value,
+                algoritmo: "Fibonacci",
+                test_chi: testChi.checked,
+                test_poker: testPoker.checked,
+                fecha_creacion: new Date().toGMTString(),
+                cant_digitos: calculoFibonacci.length,
+                secuencia: [...calculoFibonacci]
+            }
 
             // guardar en localstorage
-            const algoritmo = "fibonacci";
-            const fecha_creacion = new Date();
+            const respuesta = guardarEnLocalStorage(secuencia.nombre, secuencia);
+
+            console.log(respuesta);
 
             return;
         }
