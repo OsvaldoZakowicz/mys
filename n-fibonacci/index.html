@@ -3,61 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
 
-    <!-- estilos -->
-    <style>
-        body {
-            margin: 0;
-            padding: 1rem;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-            font-size: 1rem;
-            box-sizing: border-box;
-        }
-        p,span,h1,h2,h3,h4 {
-            margin: 2px;
-            padding: 0;
-        }
-        .container {
-            max-width: 500px;
-            min-width: 320px;
-            display: flex;
-            border: 1px solid gray;
-            margin-bottom: .5rem;
-            padding: .5rem;
-            margin: 0 auto;
-        }
-        .fibonacci-form {
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .result-box {
-            max-height: 350px;
-            flex-direction: column;
-            overflow-x: hidden;
-            overflow-y: scroll;
-        }
-        .test-box {
-            flex-direction: column;
-        }
-        .text-box {
-            font-style: italic;
-        }
-        table {
-            width: 100%;
-            margin: 10px 0;
-            text-align: center;
-        }
-        table,thead,tbody,tr,th,td {
-            border: 1px solid gray;
-            border-collapse: collapse;
-            padding: 5px;
-        }
-    </style>
+    <!-- css -->
+    <link rel="stylesheet" href="../style.css">
+
+    <title>Algoritmo de Fibonacci</title>
 </head>
 <body>
     <!-- formulario de fibonacci -->
-    <div class="container fibonacci-form">
+    <div class="container form">
         <h4>Pseudoaleatorios Fibonacci:</h4>
         <label for="semilla1">semilla 1:</label>
         <input type="number" name="semilla1" id="semilla1" min="1" required value="1">
@@ -171,6 +125,28 @@
             </table>
             <p id="conclusionTestPoker"></p>
         </div>
+    </div>
+
+    <!-- controles sobre la secuencia -->
+    <div class="container form">
+        <h4>Guardar secuencia:</h4>
+        <label for="nombre">nombre de secuencia</label>
+        <input required type="text" name="nombre" min="5" max="45" id="nombre">
+        <label for="">¿que tests paso la secuencia?</label>
+        <div style="display: flex; flex-direction: column;">
+            <label for="test_chi">
+                <input type="checkbox" name="test_chi" id="test_chi" value="chi-cuadrado">
+                test chi-cuadrado
+            </label>
+            <label for="test_poker">
+                <input type="checkbox" name="test_poker" id="test_poker" value="poker">
+                test de poker
+            </label>
+        </div>
+        <div>
+            <p id="errores"></p>
+        </div>
+        <input type="button" value="guardar secuencia" onclick="guardar()">
     </div>
 
     <script src="nFibonacci.js"></script>
@@ -309,6 +285,44 @@
             return;
         }
     
+        /* funcion en el boton guardar secuencia */
+        function guardar() {
+
+            // no hay secuencia, finalizar
+            if (calculoFibonacci.length === 0) {
+                alert('Genere una secuencia primero!');
+                return;
+            }
+
+            const nombreSecuencia = ELEM_ID('nombre');
+            const testChi = ELEM_ID('test_chi');
+            const testPoker = ELEM_ID('test_poker');
+            const errores = ELEM_ID('errores');
+
+            // validaciones
+            if (nombreSecuencia.value.length === 0) {
+                errores.textContent = 'Indique un nombre de secuencia!';
+                return;
+            }
+
+            if (!(testChi.checked || testPoker.checked)) {
+                errores.textContent = 'Indique si al menos 1 test fue superado!';
+                return;
+            }
+
+            // sin errores
+            errores.textContent = '';
+
+            console.log(nombreSecuencia.value);
+            console.log(testChi.checked);
+            console.log(testPoker.checked);
+
+            // guardar en localstorage
+            const algoritmo = "fibonacci";
+            const fecha_creacion = new Date();
+
+            return;
+        }
     </script>
 </body>
 </html>
