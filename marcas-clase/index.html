@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- css -->
+    <link rel="stylesheet" href="../style.css">
+
+    <title>modelos y simulacion DEMO</title>
+</head>
+<body>
+    <!-- menu -->
+    <div class="container">
+        <a href="../index.html">pagina principal</a>
+    </div>
+    <!-- secuencias generadas -->
+    <div class="container test-box">
+        <h4>secuencias generadas:</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>secuencia:</th>
+                    <th>algoritmo:</th>
+                    <th>tests aprobados:</th>
+                    <th>cant. digitos:</th>
+                    <th>fecha creacion:</th>
+                    <th>acciones:</th>
+                </tr>
+            </thead>
+            <tbody id="tabla">
+
+            </tbody>
+        </table>
+    </div>
+    <!-- marcas de clase -->
+    <div class="container">
+        <h4>marcas de clase: </h4>
+        <p>proximamente!! :P</p>
+    </div>
+
+
+    <script src="../storage/localStorage.js"></script>
+
+    <script>
+        /* funcion obtener elemento por ID */
+        const ELEM_ID = (id) => document.getElementById(id);
+
+        /* evento y funcion para recuperar y mostrar localstorage */
+        window.addEventListener("load", function () {
+
+            const tabla = ELEM_ID("tabla");
+            const storage = recuperarLocalStorage();
+
+            // si localstorage vacio
+            if (storage.length === 0) {
+                tabla.innerHTML +=
+                `<tr>
+                    <td colspan="6">no hay secuencias generadas!,
+                        generar con: <a href="../n-fibonacci/index.html">fibonacci</a> </td>    
+                </tr>`;
+                return;
+            }
+
+            // si localstorage con datos
+            for (let i = 0; i < storage.length; i++) {
+                const element = storage[i];
+                console.log(element);
+                tabla.innerHTML += 
+                    `<tr">
+                        <td>${element.nombre}</td>
+                        <td>${element.algoritmo}</td>
+                        <td>
+                            ${(element.test_chi) ? "chi-cuadrado" : ""}
+                            ${(element.test_poker) ? "poker" : ""}
+                        </td>
+                        <td>${element.cant_digitos}</td>
+                        <td>${element.fecha_creacion}</td>
+                        <td>
+                            <button onclick="borrar('${element.nombre}')">borrar</button>
+                        </td>
+                    </tr>`;
+            }
+
+        }, false)
+
+        /* funcion para borrar una secuencia */
+        function borrar(clave) {
+            // mensaje de confirmacion
+            let respuesta = confirm("desea borrar la secuencia! AVISO: esto recargará la página!.");
+            if (respuesta) {
+                // eliminar
+                eliminarDelLocalStorage(clave);
+                // refrescar pagina
+                window.location.reload();
+            }
+            return;
+        }
+
+    </script>
+</body>
+</html>

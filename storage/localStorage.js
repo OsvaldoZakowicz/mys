@@ -53,14 +53,14 @@ function obtenerDeLocalStorage(clave) {
         return "la secuencia buscada no existe!";
     }
 
-    return objeto;
+    return JSON.parse(objeto);
 }
 
 /**
  * * obtiene todos los objetos del local storage
  * @returns array de objetos
  */
-function mostrarLocalStorage() {
+function recuperarLocalStorage() {
 
     // local storage
     const lst = window.localStorage;
@@ -71,9 +71,19 @@ function mostrarLocalStorage() {
     for (const clave in lst) {
         if (Object.hasOwnProperty.call(lst, clave)) {
             const element = lst[clave];
-            stored.push(element)
+            stored.push(JSON.parse(element));
         }
     }
 
     return stored;
+}
+
+function eliminarDelLocalStorage(clave) {
+ 
+    // local storage
+    const lst = window.localStorage;
+
+    lst.removeItem(clave);
+
+    return;
 }

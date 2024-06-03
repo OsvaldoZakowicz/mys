@@ -10,7 +10,7 @@ p,span,h1,h2,h3,h4 {
     padding: 0;
 }
 .container {
-    max-width: 500px;
+    max-width: 900px;
     min-width: 320px;
     display: flex;
     border: 1px solid gray;
