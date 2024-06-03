@@ -10,6 +10,10 @@
     <title>Algoritmo de Fibonacci</title>
 </head>
 <body>
+    <!-- menu -->
+    <div class="container">
+        <a href="../index.html">pagina principal</a>
+    </div>
     <!-- formulario de fibonacci -->
     <div class="container form">
         <h4>Pseudoaleatorios Fibonacci:</h4>
@@ -144,7 +148,7 @@
             </label>
         </div>
         <div>
-            <p id="errores"></p>
+            <p id="validaciones"></p>
         </div>
         <input type="button" value="guardar secuencia" onclick="guardar()">
     </div>
@@ -297,21 +301,21 @@
             const nombreSecuencia = ELEM_ID('nombre');
             const testChi = ELEM_ID('test_chi');
             const testPoker = ELEM_ID('test_poker');
-            const errores = ELEM_ID('errores');
+            const validaciones = ELEM_ID('validaciones');
 
             // validaciones
             if (nombreSecuencia.value.length === 0) {
-                errores.textContent = 'Indique un nombre de secuencia!';
+                validaciones.textContent = 'Indique un nombre de secuencia!';
                 return;
             }
 
             if (!(testChi.checked || testPoker.checked)) {
-                errores.textContent = 'Indique si al menos 1 test fue superado!';
+                validaciones.textContent = 'Indique si al menos 1 test fue superado!';
                 return;
             }
 
             // sin errores
-            errores.textContent = '';
+            validaciones.textContent = '';
 
             // objeto a guardar
             const secuencia = {
@@ -326,8 +330,7 @@
 
             // guardar en localstorage
             const respuesta = guardarEnLocalStorage(secuencia.nombre, secuencia);
-
-            console.log(respuesta);
+            alert(respuesta);
 
             return;
         }
